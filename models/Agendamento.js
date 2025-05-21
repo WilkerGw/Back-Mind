@@ -1,5 +1,3 @@
-// mind-backend-main\models\Agendamento.js
-
 const mongoose = require('mongoose');
 
 const agendamentoSchema = new mongoose.Schema({
@@ -22,6 +20,18 @@ const agendamentoSchema = new mongoose.Schema({
   observation: {
     type: String,
     required: true
+  },
+  contactado: {
+    type: Boolean,
+    default: false
+  },
+  compareceu: {
+    type: Boolean,
+    default: false
+  },
+  faltou: {
+    type: Boolean,
+    default: false
   }
 });
 

@@ -26,8 +26,8 @@ exports.getAgendamentoById = async (req, res) => {
 // Função para criar um novo agendamento
 exports.createAgendamento = async (req, res) => {
   try {
-    const { name, telephone, date, hour, observation } = req.body;
-    const newAgendamento = new Agendamento({ name, telephone, date, hour, observation });
+    const { name, telephone, date, hour, observation, contactado, compareceu, faltou } = req.body;
+    const newAgendamento = new Agendamento({ name, telephone, date, hour, observation, contactado, compareceu, faltou });
     const savedAgendamento = await newAgendamento.save();
     res.status(201).json(savedAgendamento);
   } catch (error) {
@@ -39,10 +39,10 @@ exports.createAgendamento = async (req, res) => {
 exports.updateAgendamento = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, telephone, date, hour, observation } = req.body;
+    const { name, telephone, date, hour, observation, contactado, compareceu, faltou } = req.body;
     const updatedAgendamento = await Agendamento.findByIdAndUpdate(
       id,
-      { name, telephone, date, hour, observation },
+      { name, telephone, date, hour, observation, contactado, compareceu, faltou },
       { new: true }
     );
     if (!updatedAgendamento) {

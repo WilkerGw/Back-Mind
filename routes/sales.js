@@ -7,12 +7,16 @@ const {
   updateSale,
   deleteSale,
   getTotalSales,
-  getSalesHistory
+  getSalesHistory,
+  getDailySales,
+  getMonthlySales
 } = require('../controllers/sales');
 
 router.get('/', getAllSales);
 router.get('/total', getTotalSales); // Rota para vendas totais
-router.get('/history', getSalesHistory); // Rota para histórico
+router.get('/history', getSalesHistory); // Rota para histórico diário
+router.get('/daily', getDailySales); // Rota para vendas diárias
+router.get('/monthly', getMonthlySales); // Rota para vendas mensais
 router.get('/:id', getSaleById);
 router.post('/', createSale);
 router.put('/:id', updateSale);

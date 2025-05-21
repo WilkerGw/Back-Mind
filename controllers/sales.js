@@ -112,6 +112,54 @@ exports.getSalesHistory = async (req, res) => {
     }));
     res.json(formattedData);
   } catch (error) {
+    console.error('Erro ao processar getSalesHistory:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getDailySales = async (req, res) => {
+  try {
+    const today = new Date().toISOString().split('T')[0];
+    const dailySales = await Sale.aggregate([
+      {
+        $match: { saleDate: today }
+      },
+      {
+        $group: {
+          _id: null,
+          total: { $sum: "$total" }
+        }
+      }
+    ]);
+    res.json({ dailyTotal: dailySales[0]?.total || 0 });
+  } catch (error) {
+    console.error('Erro ao processar getDailySales:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getMonthlySales = async (req, res) => {
+  try {
+    const firstDayOfMonth = new Date();
+    firstDayOfMonth.setDate(1);
+    const monthlySales = await Sale.aggregate([
+      {
+        $match: {
+          saleDate: {
+            $gte: firstDayOfMonth.toISOString().split('T')[0]
+          }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          total: { $sum: "$total" }
+        }
+      }
+    ]);
+    res.json({ monthlyTotal: monthlySales[0]?.total || 0 });
+  } catch (error) {
+    console.error('Erro ao processar getMonthlySales:', error);
     res.status(500).json({ error: error.message });
   }
 };

@@ -8,7 +8,6 @@ const saleRoutes = require('./routes/sales');
 const promotionRoutes = require('./routes/promotions');
 const boletoRoutes = require('./routes/boletos');
 const agendamentoRoutes = require('./routes/agendamento');
-
 const app = express();
 
 // Conectar ao banco de dados
